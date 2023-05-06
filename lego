@@ -1,0 +1,37 @@
+/* imports */
+
+namespace Lego
+{
+    /// <summary>
+    /// The main class that adds the core tower to the game
+    /// </summary>
+    public class Lego : ModTower
+    {
+        // public override string Portrait => "Don't need this, default Lego-Portrait.png";
+        // public override string Icon => "Don't need this, default becomes Lego-Icon.png";
+
+        public override string TowerSet => PRIMARY;
+        public override string BaseTower => TowerType.DartMonkey;
+        public override int Cost => 370
+
+        public override int TopPathUpgrades => 5;
+        public override int MiddlePathUpgrades => 0
+        public override int BottomPathUpgrades => 0
+        public override string Description => "Throws Legos at bloons"
+
+        // public override string DisplayName => "Don't need this, by default becomes 'Lego'
+
+        public override void ModifyBaseTowerModel(TowerModel towerModel)
+        {
+            towerModel.range += 10;
+            var attackModel = towerModel.GetAttackModel();
+            attackModel.range += 10;
+            
+            
+            var projectile = attackModel.weapons[0].projectile;
+            projectile.ApplyDisplay<RedCardDisplay>();  // Make the projectiles look like legos
+            projectile.pierce += 2;
+        }
+
+    }
+}
